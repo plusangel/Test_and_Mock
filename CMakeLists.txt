@@ -16,13 +16,13 @@ add_executable(main main.cpp)
 
 # Catch2 tests
 add_executable(catch2Tests catch2_tests.cpp)
-add_test(catch2Tests catch2Tests)
 
 # gtest tests
-add_executable(gtestTests gtest_tests.cpp)
+add_executable(gtestTests gTest_tests.cpp)
 target_link_libraries(gtestTests gtest gtest_main)
-add_test(gtestTests gtestTests)
 
 # boost tests
 add_executable(boostTests boost_tests.cpp)
-add_test(boostTests boostTests)
+
+# gmock tests
+add_executable(hippoTests hippo_tests.cpp)
