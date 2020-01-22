@@ -2,7 +2,7 @@
 // Created by angelos on 17/01/2020.
 //
 #define CATCH_CONFIG_MAIN
-#include "Catch2/catch.hpp"
+#include "../Catch2/catch.hpp"
 #include "autoBrake.h"
 #include <mockServiceBus.h>
 

@@ -15,14 +15,14 @@ add_library(autoBrake include/autoBrake.h)
 add_executable(main main.cpp)
 
 # Catch2 tests
-add_executable(catch2Tests catch2_tests.cpp)
+add_executable(catch2Tests src/catch2_tests.cpp)
 
 # gtest tests
-add_executable(gtestTests gTest_tests.cpp)
+add_executable(gtestTests src/gTest_tests.cpp)
 target_link_libraries(gtestTests gtest gtest_main)
 
 # boost tests
-add_executable(boostTests boost_tests.cpp)
+add_executable(boostTests src/boost_tests.cpp)
 
 # gmock tests
-add_executable(hippoTests hippo_tests.cpp)
+add_executable(hippoTests src/hippo_tests.cpp)

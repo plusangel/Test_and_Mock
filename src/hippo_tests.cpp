@@ -3,8 +3,8 @@
 //
 
 #define CATCH_CONFIG_MAIN
-#include "Catch2/catch.hpp"
-#include "autoBrake2.h"
+#include "../Catch2/catch.hpp"
+#include "autoBrakeCatch.h"
 #include "hippomocks.h"
 
 TEST_CASE("AutoBrake") {

@@ -5,19 +5,7 @@
 #ifndef AUTOBRAKE_ISERVICEBUS_H
 #define AUTOBRAKE_ISERVICEBUS_H
 #include <functional>
-
-struct SpeedUpdate {
-  double velocity_mps;
-};
-
-struct CarDetected {
-  double distance_m;
-  double velocity_mps;
-};
-
-struct BrakeCommand {
-  double time_to_collision_s;
-};
+#include "services.h"
 
 using SpeedUpdateCallback = std::function<void(const SpeedUpdate &)>;
 using CarDetectedCallback = std::function<void(const CarDetected &)>;

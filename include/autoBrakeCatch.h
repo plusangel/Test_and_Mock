@@ -5,7 +5,7 @@
 #ifndef AUTOBRAKE_AUTOBRAKE_H
 #define AUTOBRAKE_AUTOBRAKE_H
 
-#include "iServiceBus2.h"
+#include "iServiceBusCatch.h"
 #include <stdexcept>
 
 struct AutoBrake2 {
