@@ -14,8 +14,8 @@ enable_testing()
 add_library(autoBrake include/autoBrake.h)
 add_executable(main main.cpp)
 
-# Catch2 tests
-add_executable(catch2Tests src/catch2_tests.cpp)
+# Catch tests
+add_executable(catchTests src/catch_tests.cpp)
 
 # gtest tests
 add_executable(gtestTests src/gTest_tests.cpp)

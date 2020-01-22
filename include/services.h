@@ -18,4 +18,8 @@ struct BrakeCommand {
   double time_to_collision_s;
 };
 
+struct SpeedLimitDetected {
+  unsigned short speed_mps;
+};
+
 #endif // AUTOBRAKE_SERVICES_H

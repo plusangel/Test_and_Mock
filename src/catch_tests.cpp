@@ -22,6 +22,10 @@ TEST_CASE("AutoBrake") {
     REQUIRE_THROWS(auto_brake.set_collision_threshold_s(0.5L));
   }
 
+  SECTION("initialises last known speed limit to 39") {
+    REQUIRE(auto_brake.get_last_known_speed_limit() == 39);
+  }
+
   SECTION("saves speed after update") {
     bus.speed_update_callback(SpeedUpdate{100L});
     REQUIRE(100L == auto_brake.get_speed_ms());
@@ -29,6 +33,15 @@ TEST_CASE("AutoBrake") {
     REQUIRE(50L == auto_brake.get_speed_ms());
     bus.speed_update_callback(SpeedUpdate{0L});
     REQUIRE(0L == auto_brake.get_speed_ms());
+  }
+
+  SECTION("saves speed limits after update") {
+    bus.speed_limit_callback(SpeedLimitDetected{100L});
+    REQUIRE(100L == auto_brake.get_last_known_speed_limit());
+    bus.speed_limit_callback(SpeedLimitDetected{50L});
+    REQUIRE(50L == auto_brake.get_last_known_speed_limit());
+    bus.speed_limit_callback(SpeedLimitDetected{0L});
+    REQUIRE(0L == auto_brake.get_last_known_speed_limit());
   }
 
   SECTION("alert when imminent") {

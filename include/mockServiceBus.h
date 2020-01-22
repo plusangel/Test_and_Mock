@@ -17,8 +17,14 @@ struct MockServiceBus : IServiceBus {
     car_detected_callback = callback;
   }
 
+  void subscribe(SpeedLimitCallBack callback) override {
+    speed_limit_callback = callback;
+  }
+
   BrakeCommand last_command{};
   int command_published{};
+
   SpeedUpdateCallback speed_update_callback{};
   CarDetectedCallback car_detected_callback{};
+  SpeedLimitCallBack speed_limit_callback{};
 };
