@@ -12,11 +12,18 @@ struct AutoBrake {
   explicit AutoBrake(IServiceBus &bus)
       : speed_mps{}, collision_threshold_s{5}, last_known_speed_limit{39} {
 
-    bus.subscribe(
-        [this](const SpeedUpdate &update) { speed_mps = update.velocity_mps; });
+    bus.subscribe([this, &bus](const SpeedUpdate &update) {
+      speed_mps = update.velocity_mps;
+      if (last_known_speed_limit < speed_mps) {
+        bus.publish(BrakeCommand{0L});
+      }
+    });
 
-    bus.subscribe([this](const SpeedLimitDetected &update) {
+    bus.subscribe([this, &bus](const SpeedLimitDetected &update) {
       last_known_speed_limit = update.speed_mps;
+      if (last_known_speed_limit < speed_mps) {
+        bus.publish(BrakeCommand{0L});
+      }
     });
 
     bus.subscribe([this, &bus](const CarDetected &cd) {

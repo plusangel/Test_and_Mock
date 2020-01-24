@@ -45,6 +45,7 @@ TEST_CASE("AutoBrake") {
   }
 
   SECTION("alert when imminent") {
+    bus.speed_limit_callback(SpeedLimitDetected{100L});
     auto_brake.set_collision_threshold_s(10L);
     bus.speed_update_callback(SpeedUpdate{100L});
     bus.car_detected_callback(CarDetected{100L, 0L});
@@ -54,8 +55,30 @@ TEST_CASE("AutoBrake") {
 
   SECTION("no alert when not imminent") {
     auto_brake.set_collision_threshold_s(2L);
+    bus.speed_limit_callback(SpeedLimitDetected{100L});
     bus.speed_update_callback(SpeedUpdate{100L});
     bus.car_detected_callback(CarDetected{1000L, 50L});
     REQUIRE(bus.command_published == 0);
+  }
+
+  SECTION("no alert when speed bellow limit") {
+    bus.speed_limit_callback(SpeedLimitDetected{35L});
+    bus.speed_update_callback(SpeedUpdate{34L});
+    REQUIRE(bus.command_published == 0);
+  }
+
+  SECTION("alert when speed above limit") {
+    bus.speed_limit_callback(SpeedLimitDetected{35L});
+    bus.speed_update_callback(SpeedUpdate{40L});
+    REQUIRE(bus.command_published == 1);
+    REQUIRE(bus.last_command.time_to_collision_s == Approx(0));
+  }
+
+  SECTION("alert when speed starts bellow and ends above the limit") {
+    bus.speed_limit_callback(SpeedLimitDetected{35L});
+    bus.speed_update_callback(SpeedUpdate{30L});
+    bus.speed_limit_callback(SpeedLimitDetected{25L});
+    REQUIRE(bus.command_published == 1);
+    REQUIRE(bus.last_command.time_to_collision_s == Approx(0));
   }
 }

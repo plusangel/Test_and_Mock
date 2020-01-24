@@ -19,7 +19,7 @@ struct BrakeCommand {
 };
 
 struct SpeedLimitDetected {
-  unsigned short speed_mps;
+  short speed_mps;
 };
 
 #endif // AUTOBRAKE_SERVICES_H

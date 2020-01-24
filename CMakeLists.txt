@@ -21,8 +21,12 @@ add_executable(catchTests src/catch_tests.cpp)
 add_executable(gtestTests src/gTest_tests.cpp)
 target_link_libraries(gtestTests gtest gtest_main)
 
+# gtest tests
+add_executable(gmockTests src/gMock_tests.cpp)
+target_link_libraries(gmockTests gmock gtest gtest_main)
+
 # boost tests
 add_executable(boostTests src/boost_tests.cpp)
 
-# gmock tests
+# HippoMock tests
 add_executable(hippoTests src/hippo_tests.cpp)
