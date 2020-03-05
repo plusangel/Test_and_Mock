@@ -6,6 +6,7 @@
 #define AUTOBRAKE_AUTOBRAKE_H
 
 #include "iServiceBus.h"
+#include <ostream>
 #include <stdexcept>
 
 struct AutoBrake {
@@ -51,10 +52,19 @@ struct AutoBrake {
     return last_known_speed_limit;
   }
 
+  friend std::ostream &operator<<(std::ostream &s, AutoBrake ab);
+
 private:
   double collision_threshold_s;
   double speed_mps;
   short last_known_speed_limit;
 };
+
+std::ostream &operator<<(std::ostream &s, AutoBrake ab) {
+  s << "Vehicle's current collision threshold:" << ab.collision_threshold_s
+    << std::endl;
+  s << "Vehicle's current speed:" << ab.speed_mps << std::endl;
+  return s;
+}
 
 #endif // AUTOBRAKE_AUTOBRAKE_H

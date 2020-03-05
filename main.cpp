@@ -85,5 +85,13 @@ int main() {
   run_test(alert_when_imminent, "alert when imminent");
   run_test(alert_when_not_imminent, "alert when not imminent");
 
+  MockServiceBus bus{};
+  AutoBrake auto_brake{bus};
+
+  bus.speed_update_callback(SpeedUpdate{100L});
+  auto_brake.set_collision_threshold_s(5.0L);
+
+  std::cout << auto_brake;
+
   return 0;
 }
